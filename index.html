@@ -1,14 +1,138 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Random</title>
+    <title>RANSOM</title>
+
+    <style>
+        body {
+            margin: 0;
+            background: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        #game {
+            margin-top: 100px;
+        }
+
+        #entity {
+            font-size: 80px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-shadow: 0 0 15px white;
+        }
+
+        #message {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        #counter {
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+
+        #timer {
+            font-size: 30px;
+            margin-bottom: 30px;
+        }
+
+        #clickButton {
+            font-size: 30px;
+            padding: 20px 50px;
+            background: white;
+            color: black;
+            border: none;
+            cursor: pointer;
+        }
+
+        #clickButton:hover {
+            background: #cccccc;
+        }
+    </style>
 </head>
 
 <body>
 
-    <h1>HELLO.</h1>
+    <div id="game">
 
-    <p>You found the website.</p>
+        <div id="entity">RANSOM</div>
+
+        <div id="message">
+            PAY.
+        </div>
+
+        <div id="counter">
+            0 / 100
+        </div>
+
+        <div id="timer">
+            TIME: 10
+        </div>
+
+        <button id="clickButton">
+            CLICK
+        </button>
+
+    </div>
+
+    <script>
+
+        let clicks = 0;
+        let timeLeft = 10;
+        let finished = false;
+
+        const button = document.getElementById("clickButton");
+        const counter = document.getElementById("counter");
+        const timer = document.getElementById("timer");
+        const message = document.getElementById("message");
+
+        button.onclick = function() {
+
+            if (finished) {
+                return;
+            }
+
+            clicks++;
+
+            counter.textContent = clicks + " / 100";
+
+            if (clicks >= 100) {
+                finished = true;
+
+                message.textContent = "PAYMENT ACCEPTED.";
+
+                button.disabled = true;
+            }
+        };
+
+        const countdown = setInterval(function() {
+
+            if (finished) {
+                clearInterval(countdown);
+                return;
+            }
+
+            timeLeft--;
+
+            timer.textContent = "TIME: " + timeLeft;
+
+            if (timeLeft <= 0) {
+
+                finished = true;
+
+                message.textContent = "TOO LATE.";
+
+                button.disabled = true;
+
+                clearInterval(countdown);
+            }
+
+        }, 1000);
+
+    </script>
 
 </body>
 </html>
